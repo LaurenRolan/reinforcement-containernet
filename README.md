@@ -16,9 +16,9 @@
 ### Executar
 
 * Arquivos da pasta controlador devem ficar em ~/pox/ext
-* Controlador deve ser invocado a partir de ~/pox/ (primeira linha de controller.py descreve como)
+* Controlador deve ser invocado a partir de ~/pox/ (primeira linha de controllerFirewall.py descreve como)
 * Build todas imagens Docker (ver dockerfiles)
-* Em orquestrator/ estao os ambientes Mininet
+* Em orchestrator/ estao os ambientes Mininet
 
 * Em um terminal, executar o controlador.
 * Em outro, executar topologia (e.g. orchestratorFirewall.py).

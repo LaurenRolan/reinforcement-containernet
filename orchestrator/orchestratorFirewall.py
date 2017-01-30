@@ -265,8 +265,8 @@ c0 = net.addController( 'c0', controller=RemoteController, ip='127.0.0.1', port=
 s1 = net.addSwitch('s1')
 s2 = net.addSwitch('s2')
 s3 = net.addSwitch('s3')
-h51 = net.addDocker('h51', ip = "10.0.0.51", mac = "00:00:00:00:00:51", dimage="phfaustini/firewall:latest")
-h52 = net.addDocker('h52', ip = "10.0.0.52", mac = "00:00:00:00:00:52", dimage="phfaustini/firewall:latest")
+h51 = net.addDocker('h51', ip = "10.0.0.51", mac = "00:00:00:00:00:51", dimage="firewall:latest")
+h52 = net.addDocker('h52', ip = "10.0.0.52", mac = "00:00:00:00:00:52", dimage="firewall:latest")
 
 net.addLink(s1, h51, **linkopts_switches)
 net.addLink(s1, h52, **linkopts_switches)
@@ -276,11 +276,11 @@ net.addLink(s2, s3, **linkopts_switches)
 
         
 info('*** Adding hosts...\n')
-hosts.append(net.addDocker('h1', ip = "10.0.1.1", mac = "00:00:00:00:00:01", dimage="phfaustini/server:latest"))
+hosts.append(net.addDocker('h1', ip = "10.0.1.1", mac = "00:00:00:00:00:01", dimage="server:latest"))
 hosts.append(net.addHost('h2', ip="10.0.2.2", mac="00:00:00:00:00:02" )) # Client Legit
 hosts.append(net.addHost('h3', ip="10.0.2.3", mac="00:00:00:00:00:03" )) # Client Legit
 hosts.append(net.addHost('h4', ip="10.0.2.4", mac="00:00:00:00:00:04" )) # Client Malicious
-hosts.append(net.addDocker('h5', ip = "10.0.1.5", mac = "00:00:00:00:00:05", dimage="phfaustini/server:latest"))
+hosts.append(net.addDocker('h5', ip = "10.0.1.5", mac = "00:00:00:00:00:05", dimage="server:latest"))
 net.addLink(hosts[0], s1, **linkopts_hosts)
 net.addLink(hosts[1], s2, **linkopts_hosts)
 net.addLink(hosts[2], s2, **linkopts_hosts)
@@ -310,24 +310,24 @@ net.start()
 t = Thread(target=CLI, args=(net,))
 t.start()
 agent = Agent()
-agent.listenFiles("127.0.0.1", "paths", listenPaths_port)
-agent.listenFiles("127.0.0.1", "link_status", listenLinkStatus_port)
+#agent.listenFiles("127.0.0.1", "paths", listenPaths_port)
+#agent.listenFiles("127.0.0.1", "link_status", listenLinkStatus_port)
 
 ################## Begin test ##################
 sleep(1)
-net.get('h1').cmd('cd home/ && python server.py "10.0.1.1" 60001 "coral.avi" &')
-net.get('h5').cmd('cd home/ && python server.py "10.0.1.5" 60001 "coral.avi" &')
+net.get('h1').cmd('cd home/ && python server.py "10.0.1.1" 60001 "50mb.flv" &')
+net.get('h5').cmd('cd home/ && python server.py "10.0.1.5" 60001 "50mb.flv" &')
 sleep(0.2)
 net.get('h2').cmd('cd client2/ && xterm -name "h2" &')
 net.get('h3').cmd('cd client3/ && xterm -name "h3" &')
-#net.get('h4').cmd('cd client4/ && xterm -name "h4" &')
+net.get('h4').cmd('cd client4/ && xterm -name "h4" &')
 while not ready: pass
 
-
-h52.cmd('ebtables -A FORWARD -s 00:00:00:00:00:04 -j DROP')
-h52.cmd('ebtables -A FORWARD -d 00:00:00:00:00:04 -j DROP')
-h51.cmd('ebtables -A FORWARD -s 00:00:00:00:00:04 -j DROP')
-h51.cmd('ebtables -A FORWARD -d 00:00:00:00:00:04 -j DROP')
+# Exemplo de comando para firewalls bloquearem todo tráfego de um host; no exemplo o h4"
+#h52.cmd('ebtables -A FORWARD -s 00:00:00:00:00:04 -j DROP')
+#h52.cmd('ebtables -A FORWARD -d 00:00:00:00:00:04 -j DROP')
+#h51.cmd('ebtables -A FORWARD -s 00:00:00:00:00:04 -j DROP')
+#h51.cmd('ebtables -A FORWARD -d 00:00:00:00:00:04 -j DROP')
 
 
 while 1: pass

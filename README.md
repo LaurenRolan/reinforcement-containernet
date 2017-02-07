@@ -21,10 +21,10 @@
 * Estruturas de dados:
 	* paths: dicionário. Chave é uma tupla de strings representando hosts (e.g. ("h1, h3")). Conteúdo é uma lista de lista. Cada sublista representa um caminho entre os dois hosts. São formadas por strings. Cada string é o nome de um switch que compõe a rota entre os hosts. (e.g. paths[("h1, h3")] = [ ['s1', 's3']  , ['s1', 's2', 's3']  ]
 
-* default_route: dicionário. Chave é uma tupla de strings representando hosts. Valor é o caminho, dentre os possíveis descritos na variável 'path', efetivamente adotado pelo controlador.
+	* default_route: dicionário. Chave é uma tupla de strings representando hosts. Valor é o caminho, dentre os possíveis descritos na variável 'path', efetivamente adotado pelo controlador.
 
-* switch_ports: dicionário. Chave é um switch, e valor é uma lista com o que está conectado a cada porta do switch. Por exemplo, # switch_ports['s1'] = ['s2','s3','s5','h1','nat0''], siginifica que s2 está na porta eth1, s3 está conectado à porta eth2, e assim por diante.
+	* switch_ports: dicionário. Chave é um switch, e valor é uma lista com o que está conectado a cada porta do switch. Por exemplo, # switch_ports['s1'] = ['s2','s3','s5','h1','nat0''], siginifica que s2 está na porta eth1, s3 está conectado à porta eth2, e assim por diante.
 
-* link_status. Dicionário que traz informações sobre os links. A chave é uma tupla de strings, contendo switch e porta. Por exemplo, link_status[(s1, 1)] = [s2, cumulative, differenceFromLastTimStep], link_status[(s1, 2)] = [s3, 5025252562155, 43242],  # link s1-eth2, indo para s3, tinha 43242 bytes de tráfego no último time step, e 5025252562155 bytes trafegados desde o princípio.
+	* link_status. Dicionário que traz informações sobre os links. A chave é uma tupla de strings, contendo switch e porta. Por exemplo, link_status[(s1, 1)] = [s2, cumulative, differenceFromLastTimStep], link_status[(s1, 2)] = [s3, 5025252562155, 43242],  # link s1-eth2, indo para s3, tinha 43242 bytes de tráfego no último time step, e 5025252562155 bytes trafegados desde o princípio.
 
 

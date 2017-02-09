@@ -40,3 +40,9 @@
 * No mesmo arquivo há dois simples firewalls que bloqueiam o tráfego de um dado host. A linhas 328-331 mostram comandos de exemplo para se fazer isso com um host.
 
 * Estrutura mais importante: q_table_traffic, que recebe as recompensas dos balanceamentos conforme equacao de atualizacao do algoritmo sarsa (funcao: update_q_table_traffic(self, reward, state, action)). 
+
+### Dockerfiles
+
+* Abrigam funções de rede (e.g. firewall). Mas são versáteis e podem abrigar muitas coisas diferentes. No exemplo, os servidores são contêineres também.
+
+* Primeira linha dos arquivos Dockerfile contém informações de como construí-los, executá-los em separado, etc.

@@ -37,4 +37,6 @@
 
 * O terminal exibe informacoes da rede. Terminais xterm dos clientes abrem. Ao digitar `sh start.sh`, o respectivo cliente solicita um arquivo a um servidor.
 
+* No mesmo arquivo há dois simples firewalls que bloqueiam o tráfego de um dado host. A linhas 328-331 mostram comandos de exemplo para se fazer isso com um host.
+
 * Estrutura mais importante: q_table_traffic, que recebe as recompensas dos balanceamentos conforme equacao de atualizacao do algoritmo sarsa (funcao: update_q_table_traffic(self, reward, state, action)). 

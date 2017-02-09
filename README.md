@@ -10,7 +10,7 @@
 	`cd ~/pox && ./pox.py log.level --INFO spanning_tree samples.pretty_log openflow.discovery`
 
 * def initialise(filename="ext/switch_portsF.csv"):
-	* Recebe um .csv com a topologia
+	* Recebe um .csv com a topologia. Cada linha diz respeito a um switch. Primeira coluna informa o switch. As colunas seguintes informam o que se conecta a cada porta daquele switch.
 
 
 * def send_orchestrator(ip="127.0.0.1", port=50008, filename="paths"):

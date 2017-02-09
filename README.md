@@ -6,6 +6,9 @@
 
 ### Controlador:
 
+* Executar:
+	`cd ~/pox && ./pox.py log.level --INFO spanning_tree samples.pretty_log openflow.discovery`
+
 * def initialise(filename="ext/switch_portsF.csv"):
 	* Recebe um .csv com a topologia
 
@@ -28,3 +31,10 @@
 	* link_status. Dicionário que traz informações sobre os links. A chave é uma tupla de strings, contendo switch e porta. Por exemplo, link_status[(s1, 1)] = [s2, cumulative, differenceFromLastTimStep], link_status[(s1, 2)] = [s3, 5025252562155, 43242],  # link s1-eth2, indo para s3, tinha 43242 bytes de tráfego no último time step, e 5025252562155 bytes trafegados desde o princípio.
 
 
+### OrchestratorFirewall
+
+* Ambiente com hosts e conteiners. Para inicializar, basta digitar em um terminal `sudo python orchestratorFirewall.py`
+
+* O terminal exibe informacoes da rede. Terminais xterm dos clientes abrem. Ao digitar `sh start.sh`, o respectivo cliente solicita um arquivo a um servidor.
+
+* Estrutura mais importante: q_table_traffic, que recebe as recompensas dos balanceamentos conforme equacao de atualizacao do algoritmo sarsa (funcao: update_q_table_traffic(self, reward, state, action)). 

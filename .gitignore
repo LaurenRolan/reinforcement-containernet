@@ -2,6 +2,8 @@ mnexec
 *.pyc
 *~
 *.1
+*.flv
+*.avi
 *.xcodeproj
 *.xcworkspace
 \#*\#

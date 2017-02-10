@@ -19,6 +19,9 @@
 * def change_route(ip="127.0.0.1"):
 	* Recebe um pedido do orquestrador para alterar uma rota entre dois hosts. O formato é a seguinte string:
 		* # "src,dst,route", como, por exemplo, "h3|h1|1" (optar pela rota 1 entre h3 e h1)
+
+* def calculate_paths():
+	* Calcula os caminhos, em switches, entre dois hosts. Por ora, está estático.
 	
 
 * Estruturas de dados:
@@ -29,6 +32,8 @@
 	* switch_ports: dicionário. Chave é um switch, e valor é uma lista com o que está conectado a cada porta do switch. Por exemplo, # switch_ports['s1'] = ['s2','s3','s5','h1','nat0''], siginifica que s2 está na porta eth1, s3 está conectado à porta eth2, e assim por diante.
 
 	* link_status. Dicionário que traz informações sobre os links. A chave é uma tupla de strings, contendo switch e porta. Por exemplo, link_status[(s1, 1)] = [s2, cumulative, differenceFromLastTimStep], link_status[(s1, 2)] = [s3, 5025252562155, 43242],  # link s1-eth2, indo para s3, tinha 43242 bytes de tráfego no último time step, e 5025252562155 bytes trafegados desde o princípio.
+
+	* ip_to_mac: dicionário que mapeia, como o nome diz, um endereço IP para um endereço MAC. Por ora, está estático. Assim como a descoberta de topologia, feita por um arquivo csv, pode ser dinamizada.
 
 
 ### OrchestratorFirewall

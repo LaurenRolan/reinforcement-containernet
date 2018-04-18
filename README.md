@@ -2,7 +2,7 @@
 # Português - Portuguese
 ### Setup
 * Virtual Box 5.1. Duas opções diferentes de configurações:
-* 1) Vá em File -> Preferences -> Network -> "Add host-only network" button com configurações default. Isso permite, se necessário no futuro, acessar a VM a partir da máquina host (e.g. ssh).
+* 1) Vá em File -> Preferences -> Network -> "Add host-only network" button com configurações default. Isso permite, se necessário no futuro, acessar a VM a partir da máquina host (e.g. __ssh__).
 * 2) Botão direito sobre Docker Clone -> Network -> Adapter 2 -> Desabilite a caixa "Enable Network Adapter". Isso não permite um ssh na VM, mas por ora é irrelevante.
 
 ### Controlador:
@@ -19,7 +19,7 @@
 
 * def change_route(ip="127.0.0.1"):
 	* Recebe um pedido do orquestrador para alterar uma rota entre dois hosts. O formato é a seguinte string:
-		* # "src,dst,route", como, por exemplo, "h3|h1|1" (optar pela rota 1 entre h3 e h1)
+		* ##### "src,dst,route", como, por exemplo, "h3|h1|1" (optar pela rota 1 entre h3 e h1)
 
 * def calculate_paths():
 	* Calcula os caminhos, em switches, entre dois hosts. Por ora, está estático.
@@ -85,16 +85,16 @@
 
 ### OrchestratorFirewall
 
-* Ambiente com hosts e conteiners. Para inicializar, basta digitar em um terminal `sudo python orchestratorFirewall.py`
+* It is an environment with hosts and containers. To initialize it, type on the terminal `sudo python orchestratorFirewall.py`
 
-* O terminal exibe informacoes da rede. Terminais xterm dos clientes abrem. Ao digitar `sh start.sh`, o respectivo cliente solicita um arquivo a um servidor.
+* The terminal shows info about the network. The client's xterm terminals will open. By typing `sh start.sh`, the current client requests a file to the server.
 
-* No mesmo arquivo há dois simples firewalls que bloqueiam o tráfego de um dado host. A linhas 328-331 mostram comandos de exemplo para se fazer isso com um host.
+* In the same file there are two simple firewalls that block the traffic from a specific host. Lines 328-331 show example commands to do so with a host.
 
-* Estrutura mais importante: q_table_traffic, que recebe as recompensas dos balanceamentos conforme equacao de atualizacao do algoritmo sarsa (funcao: update_q_table_traffic(self, reward, state, action)). 
+* The most important structure is __q_table_traffic__, that receives the rewards of the balancing accordingly with the SARSA update equation (function: update_q_table_traffic(self, reward, state, action)). 
 
 ### Dockerfiles
 
-* Abrigam funções de rede (e.g. firewall). Mas são versáteis e podem abrigar muitas coisas diferentes. No exemplo, os servidores são contêineres também.
+* They host the function networks (e.g. firewall), but are versatile and can host multiple functions. One example is the use of it as server containers.
 
-* Primeira linha dos arquivos Dockerfile contém informações de como construí-los, executá-los em separado, etc.
+* The first line of the Dockerfile contains info of how to build them, execute them separately etc.

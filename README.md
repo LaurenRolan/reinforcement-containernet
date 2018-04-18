@@ -1,4 +1,5 @@
 
+# Português - Portuguese
 ### Setup
 * Virtual Box 5.1. Duas opções diferentes de configurações:
 * 1) Vá em File -> Preferences -> Network -> "Add host-only network" button com configurações default. Isso permite, se necessário no futuro, acessar a VM a partir da máquina host (e.g. ssh).
@@ -34,6 +35,52 @@
 	* link_status. Dicionário que traz informações sobre os links. A chave é uma tupla de strings, contendo switch e porta. Por exemplo, link_status[(s1, 1)] = [s2, cumulative, differenceFromLastTimStep], link_status[(s1, 2)] = [s3, 5025252562155, 43242],  # link s1-eth2, indo para s3, tinha 43242 bytes de tráfego no último time step, e 5025252562155 bytes trafegados desde o princípio.
 
 	* ip_to_mac: dicionário que mapeia, como o nome diz, um endereço IP para um endereço MAC. Por ora, está estático. Assim como a descoberta de topologia, feita por um arquivo csv, pode ser dinamizada.
+
+
+### OrchestratorFirewall
+
+* Ambiente com hosts e conteiners. Para inicializar, basta digitar em um terminal `sudo python orchestratorFirewall.py`
+
+* O terminal exibe informacoes da rede. Terminais xterm dos clientes abrem. Ao digitar `sh start.sh`, o respectivo cliente solicita um arquivo a um servidor.
+
+* No mesmo arquivo há dois simples firewalls que bloqueiam o tráfego de um dado host. A linhas 328-331 mostram comandos de exemplo para se fazer isso com um host.
+
+---
+
+# Inglês - English
+### Setup
+* Virtual Box 5.1. Two different configuration options:
+* 1) Click on File -> Preferences -> Network -> "Add host-only network" button with default configurations. This allows, if necessary, to access the VM through __ssh__.
+* 2) Right click on Docker Clone -> Network -> Adapter 2 -> Desable "Enable Network Adapter". This does not allows ssh to the VM, but it is initially irrelevant.
+
+### Controller:
+
+* Execute:
+	`cd ~/pox && ./pox.py log.level --INFO spanning_tree samples.pretty_log openflow.discovery`
+
+* def initialise(filename="ext/switch_portsF.csv"):
+	* Receives a .csv with the topology. Each line deals with one switch. The first column identifies the switch, and the following columns which connections are made.
+
+* def send_orchestrator(ip="127.0.0.1", port=50008, filename="paths"):
+	* Sends to the orchestrator, through TCP, a file.
+
+* def change_route(ip="127.0.0.1"):
+	* Receives a request from the orchestrator as to change the route between two hosts. The format is given by the following string:
+		* ##### "src,dst,route", e.g. "h3|h1|1" (choose route 1 between h3 and h1)
+
+* def calculate_paths():
+	* Calculates the path between two hosts through the switches. By now, it is static.
+
+* Data structure:
+	* paths: dictionary. A key is a tuple of strings representing two hosts (e.g. ("h1, h3")). The content is a list of lists. Each sublist represents a path between two hosts. Each string is the name of a switch that composes a route between the hosts (e.g. paths[("h1, h3")] = [ ['s1', 's3']  , ['s1', 's2', 's3'] ]).
+
+	* default_route: dictionary. A key is a tuple of strings representing hosts. A value is the path, chosen among the possible ones in the variable 'path', effectively adopted by the controller.
+
+	* switch_ports: dictionary. A key is a swicth, and a value is a list containing what is connected to each port of the switch. As an example, ##### switch_ports['s1'] = ['s2','s3','s5','h1','nat0''], means that s2 is at port eth1, s3 is connected to eth2, and so on.
+
+	* link_status: dictionary containing info about the links. The key is a tuple of strings, containing switch and port. As an example, link_status[(s1, 1)] = [s2, cumulative, differenceFromLastTimStep], link_status[(s1, 2)] = [s3, 5025252562155, 43242],  ##### link s1-eth2, going to s3, had 43242 bytes of traffic in the last time step, and 5025252562155 bytes since the start.
+
+	* ip_to_mac: dictionary that maps, as the name says, an IP address to a MAC address. For now, it is static. As the topology discovery, done by a csv file, it can be dynamized.
 
 
 ### OrchestratorFirewall
